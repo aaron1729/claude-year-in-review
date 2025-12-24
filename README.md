@@ -1,36 +1,141 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Claude Year in Review
 
-## Getting Started
+A beautiful, interactive visualization of your year with Claude. Generate your own personalized year-in-review experience from your Claude conversation export.
 
-First, run the development server:
+## Features
+
+- **10 Scrollytelling Sections**: Opening, temporal patterns, themes, tools, projects, creative moments, rhythm analysis, highlights, memories, and closing
+- **Anthropic-Inspired Design**: Warm cream backgrounds, terra cotta accents, serif typography
+- **Interactive Elements**: Click on highlights to see conversation details
+- **Downloadable Share Cards**: Save PNG images of your stats to share on social media
+- **Privacy-First**: All processing happens locally - your data never leaves your machine
+
+## Quick Start
+
+### 1. Export Your Claude Data
+
+1. Go to [claude.ai](https://claude.ai)
+2. Click your profile → Settings → Account → Export Data
+3. Download and unzip the export
+
+### 2. Clone and Install
+
+```bash
+git clone https://github.com/your-username/claude-year-in-review.git
+cd claude-year-in-review
+npm install
+```
+
+### 3. Process Your Data
+
+Copy your exported files to the `export-data` folder:
+
+```bash
+# Create the folder if it doesn't exist
+mkdir -p export-data
+
+# Copy your exported files
+cp /path/to/your/export/conversations.json export-data/
+cp /path/to/your/export/projects.json export-data/
+cp /path/to/your/export/memories.json export-data/
+cp /path/to/your/export/users.json export-data/
+```
+
+Then run the processing script:
+
+```bash
+npx tsx scripts/process-export.ts export-data
+```
+
+This creates `public/data/processed.json` with your summarized stats.
+
+### 4. View Your Year in Review
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 5. Share Your Stats
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Each section has a **Download Card** button that saves a PNG image you can share on Twitter, LinkedIn, or anywhere else!
 
-## Learn More
+## What Gets Analyzed
 
-To learn more about Next.js, take a look at the following resources:
+| Data | What We Extract |
+|------|-----------------|
+| **Conversations** | Total count, dates, message counts, themes |
+| **Messages** | Human vs assistant counts, notable excerpts |
+| **Tools** | Which tools were used, how often |
+| **Projects** | Project names, descriptions, document counts |
+| **Memories** | Categorized insights Claude learned about you |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Privacy
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+**Your data stays local.** The processing script runs entirely on your machine. The generated `processed.json` contains only aggregated statistics and selected highlights - not your full conversation history.
 
-## Deploy on Vercel
+If you deploy online, only the `processed.json` file is uploaded, not your raw export data.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Customization
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Themes
+
+Edit the theme categories in `scripts/process-export.ts`:
+
+```typescript
+const THEME_CATEGORIES = [
+  {
+    name: 'Your Custom Theme',
+    keywords: ['keyword1', 'keyword2', 'keyword3'],
+  },
+  // ...
+];
+```
+
+### Design
+
+Colors and typography are defined in `src/app/globals.css`:
+
+```css
+:root {
+  --terra-cotta: #C15F3C;  /* Accent color */
+  --cream: #F7F5F0;        /* Background */
+  --charcoal: #2D2A26;     /* Text */
+  --sage: #8B9B7E;         /* Muted text */
+}
+```
+
+## Optional: Deploy Online
+
+If you want to share your year-in-review with a link:
+
+### Vercel (Recommended)
+```bash
+npm i -g vercel
+vercel --prod
+```
+
+### Static Export
+```bash
+npm run build
+# Upload the .next folder to any static host
+```
+
+The `.vercelignore` and `.gitignore` files ensure your raw export data isn't uploaded.
+
+## Tech Stack
+
+- **Next.js 15** - React framework
+- **Framer Motion** - Animations
+- **Tailwind CSS** - Styling
+- **TypeScript** - Type safety
+- **html-to-image** - Share card generation
+
+## License
+
+MIT - Feel free to customize and share!
+
+---
+
+Made with Claude

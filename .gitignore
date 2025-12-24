@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Claude export data (contains private conversation data)
+/export-data
+
+# Processed data (contains personal summary data)
+/public/data
