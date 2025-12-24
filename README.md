@@ -14,14 +14,15 @@ A beautiful, interactive visualization of your year with Claude. Generate your o
 
 ### 1. Export Your Claude Data
 
-1. Go to [claude.ai](https://claude.ai)
-2. Click your profile → Settings → Account → Export Data
-3. Download and unzip the export
+1. Go to [claude.ai/settings/data-privacy-controls](https://claude.ai/settings/data-privacy-controls)
+2. Click **"Export Data"** at the bottom of the page
+3. Wait for the email from Claude (usually takes a few minutes)
+4. Download the zip file and unzip it - you'll have a folder with `conversations.json`, `projects.json`, `memories.json`, and `users.json`
 
 ### 2. Clone and Install
 
 ```bash
-git clone https://github.com/your-username/claude-year-in-review.git
+git clone https://github.com/SantaJordan/claude-year-in-review.git
 cd claude-year-in-review
 npm install
 ```
