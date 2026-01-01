@@ -244,20 +244,22 @@ function extractMemoryInsights(memory: Memory): MemoryInsight[] {
     }
   }
 
-  for (const [projectId, projectMemory] of Object.entries(memory.project_memories)) {
-    const sections = projectMemory.split(/\*\*([^*]+)\*\*/g);
-    for (let i = 1; i < sections.length; i += 2) {
-      const category = sections[i].trim();
-      const content = sections[i + 1]?.trim();
-      if (content && content.length > 100 && category.toLowerCase().includes('key learning')) {
-        const sentences = content.split(/[.!?]+/).filter(s => s.trim().length > 30);
-        if (sentences.length > 0) {
-          insights.push({
-            category,
-            insight: sentences[0].trim() + '.',
-            source: 'project_memory',
-            projectName: projectId
-          });
+  if (memory.project_memories) {
+    for (const [projectId, projectMemory] of Object.entries(memory.project_memories)) {
+      const sections = projectMemory.split(/\*\*([^*]+)\*\*/g);
+      for (let i = 1; i < sections.length; i += 2) {
+        const category = sections[i].trim();
+        const content = sections[i + 1]?.trim();
+        if (content && content.length > 100 && category.toLowerCase().includes('key learning')) {
+          const sentences = content.split(/[.!?]+/).filter(s => s.trim().length > 30);
+          if (sentences.length > 0) {
+            insights.push({
+              category,
+              insight: sentences[0].trim() + '.',
+              source: 'project_memory',
+              projectName: projectId
+            });
+          }
         }
       }
     }
